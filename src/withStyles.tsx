@@ -5,7 +5,7 @@ import { StyleSheet } from "react-native";
 import { ThemeBase } from ".";
 
 export declare type WithStyles<Styles> = {
-    styles: StyleSheet.NamedStyles<Styles>
+    styles: Styles
 }
 
 const contextTypes = {
@@ -19,14 +19,14 @@ const withStyles = function <Styles, Theme extends ThemeBase<any>>(stylesCallbac
 
             render() {
                 const theme: Theme = this.context.getTheme(themeName(this.props));
-                const styles = StyleSheet.create<Styles>({
+                const styles:any = StyleSheet.create<Styles>({
                     ...theme.styles as any, 
                     ...stylesCallback(theme) as any,
                 })
                 return (
                     <WrappedComponent
                         {...this.props}
-                        styles={styles}
+                        styles={styles as Styles}
                     />
                 )
             }
