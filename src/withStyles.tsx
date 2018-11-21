@@ -4,8 +4,8 @@ import hoistNonReactStatics from "hoist-non-react-statics";
 import { StyleSheet } from "react-native";
 import { ThemeBase } from ".";
 
-export declare type WithStyles<Styles> = {
-    styles: Styles
+export declare type WithStyles<Styles, Theme> = {
+    styles: Styles & Theme
 }
 
 const contextTypes = {
@@ -13,7 +13,7 @@ const contextTypes = {
 };
 
 const withStyles = function <Styles, Theme extends ThemeBase<any>>(stylesCallback: (theme: Theme)=>Styles, themeName: (props: any)=>string = ()=>'default') {
-    return function <T>(WrappedComponent: React.ComponentType<T & WithStyles<Styles & Theme>>): React.ComponentType<T> {
+    return function <T>(WrappedComponent: React.ComponentType<T & WithStyles<Styles, Theme>>): React.ComponentType<T> {
         class Wrapper extends React.PureComponent<T, {}>{
             static contextTypes = contextTypes;
 
