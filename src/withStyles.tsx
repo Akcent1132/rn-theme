@@ -5,28 +5,29 @@ import { StyleSheet } from "react-native";
 import { ThemeBase } from ".";
 
 export declare type WithStyles<Styles, Theme> = {
-    styles: Styles & Theme
+    styles: Styles,
+    theme: Theme
 }
 
 const contextTypes = {
     getTheme: PropTypes.func
 };
 
-const withStyles = function <Styles, Theme extends ThemeBase<any>>(stylesCallback: (theme: Theme)=>Styles, themeName: (props: any)=>string = ()=>'default') {
+const withStyles = function <Styles, Theme extends ThemeBase<{}>>(stylesCallback: (theme: Theme)=>Styles, themeName: (props: any)=>string = ()=>'default') {
     return function <T>(WrappedComponent: React.ComponentType<T & WithStyles<Styles, Theme>>): React.ComponentType<T> {
         class Wrapper extends React.PureComponent<T, {}>{
             static contextTypes = contextTypes;
 
             render() {
                 const theme: Theme = this.context.getTheme(themeName(this.props));
-                const styles:any = StyleSheet.create<Styles>({
-                    ...theme.styles as any, 
+                const styles:any = StyleSheet.create<Styles>({ 
                     ...stylesCallback(theme) as any,
                 })
                 return (
                     <WrappedComponent
                         {...this.props}
-                        styles={styles as Styles & Theme}
+                        styles={styles}
+                        theme={theme}
                     />
                 )
             }
