@@ -9,11 +9,12 @@ export declare type WithStyles<Styles, Theme> = {
     theme: Theme
 }
 
+
 const contextTypes = {
     getTheme: PropTypes.func
 };
 
-const withStyles = function <Styles, Theme extends ThemeBase<{}>>(stylesCallback: <OwnProps>(theme: Theme, ownProps?: OwnProps)=>Styles, themeName: <OwnProps>(props: OwnProps)=>string = ()=>'default') {
+const withStyles = function <Styles, Theme extends ThemeBase<{}>>(stylesCallback: <OwnProps>(theme: Theme, ownProps: OwnProps)=>Styles, themeName: <OwnProps>(props: OwnProps)=>string = ()=>'default') {
     return function <T>(WrappedComponent: React.ComponentType<T & WithStyles<Styles, Theme>>): React.ComponentType<T> {
         class Wrapper extends React.PureComponent<T, {}>{
             static contextTypes = contextTypes;
@@ -22,7 +23,7 @@ const withStyles = function <Styles, Theme extends ThemeBase<{}>>(stylesCallback
                 const name = themeName(this.props);
                 const theme: Theme = this.context.getTheme(name);
                 const styles:any = StyleSheet.create<Styles>({ 
-                    ...stylesCallback(theme, this.props) as any,
+                    ...stylesCallback<T>(theme, this.props) as any,
                 })
                 return (
                     <WrappedComponent
