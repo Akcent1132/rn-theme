@@ -40,7 +40,7 @@ var withStyles = function (stylesCallback, themeName) {
             Wrapper.prototype.render = function () {
                 var name = themeName(this.props);
                 var theme = this.context.getTheme(name);
-                var styles = StyleSheet.create(__assign({}, stylesCallback(theme, name)));
+                var styles = StyleSheet.create(__assign({}, stylesCallback(theme, this.props)));
                 return (React.createElement(WrappedComponent, __assign({}, this.props, { styles: styles, theme: theme })));
             };
             Wrapper.contextTypes = contextTypes;

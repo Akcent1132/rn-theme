@@ -45,7 +45,7 @@ define(["require", "exports", "react", "prop-types", "hoist-non-react-statics", 
                 Wrapper.prototype.render = function () {
                     var name = themeName(this.props);
                     var theme = this.context.getTheme(name);
-                    var styles = react_native_1.StyleSheet.create(__assign({}, stylesCallback(theme, name)));
+                    var styles = react_native_1.StyleSheet.create(__assign({}, stylesCallback(theme, this.props)));
                     return (react_1.default.createElement(WrappedComponent, __assign({}, this.props, { styles: styles, theme: theme })));
                 };
                 Wrapper.contextTypes = contextTypes;

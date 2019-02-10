@@ -2,6 +2,7 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import { ViewStyle, TextStyle } from "react-native";
 export declare type ThemeBase<S, C extends string = string, F extends string = string, Sh extends string = string> = {
+    name: string;
     colors: Record<C, string>;
     styles: S;
     fonts: Record<F, TextStyle>;
