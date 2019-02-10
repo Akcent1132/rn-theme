@@ -43,8 +43,9 @@ define(["require", "exports", "react", "prop-types", "hoist-non-react-statics", 
                     return _super !== null && _super.apply(this, arguments) || this;
                 }
                 Wrapper.prototype.render = function () {
-                    var theme = this.context.getTheme(themeName(this.props));
-                    var styles = react_native_1.StyleSheet.create(__assign({}, stylesCallback(theme)));
+                    var name = themeName(this.props);
+                    var theme = this.context.getTheme(name);
+                    var styles = react_native_1.StyleSheet.create(__assign({}, stylesCallback(theme, name)));
                     return (react_1.default.createElement(WrappedComponent, __assign({}, this.props, { styles: styles, theme: theme })));
                 };
                 Wrapper.contextTypes = contextTypes;

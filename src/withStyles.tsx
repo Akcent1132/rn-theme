@@ -13,15 +13,16 @@ const contextTypes = {
     getTheme: PropTypes.func
 };
 
-const withStyles = function <Styles, Theme extends ThemeBase<{}>>(stylesCallback: (theme: Theme)=>Styles, themeName: (props: any)=>string = ()=>'default') {
+const withStyles = function <Styles, Theme extends ThemeBase<{}>>(stylesCallback: (theme: Theme, themeName?: string)=>Styles, themeName: (props: any)=>string = ()=>'default') {
     return function <T>(WrappedComponent: React.ComponentType<T & WithStyles<Styles, Theme>>): React.ComponentType<T> {
         class Wrapper extends React.PureComponent<T, {}>{
             static contextTypes = contextTypes;
 
             render() {
-                const theme: Theme = this.context.getTheme(themeName(this.props));
+                const name = themeName(this.props);
+                const theme: Theme = this.context.getTheme(name);
                 const styles:any = StyleSheet.create<Styles>({ 
-                    ...stylesCallback(theme) as any,
+                    ...stylesCallback(theme, name) as any,
                 })
                 return (
                     <WrappedComponent
