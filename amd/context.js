@@ -5,13 +5,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
-define(["require", "exports", "react", "./context"], function (require, exports, React, context_1) {
+define(["require", "exports", "react"], function (require, exports, React) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     React = __importStar(React);
-    var ThemeProvider = function (_a) {
-        var children = _a.children, themes = _a.themes;
-        return (React.createElement(context_1.ThemeContext.Provider, { value: themes }, children));
-    };
-    exports.default = ThemeProvider;
+    exports.ThemeContext = React.createContext({});
 });

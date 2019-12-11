@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -25,15 +25,11 @@ var __assign = (this && this.__assign) || function () {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-define(["require", "exports", "react", "prop-types", "hoist-non-react-statics", "react-native"], function (require, exports, react_1, prop_types_1, hoist_non_react_statics_1, react_native_1) {
+define(["require", "exports", "react", "react-native", "./context", "hoist-non-react-statics"], function (require, exports, react_1, react_native_1, context_1, hoist_non_react_statics_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     react_1 = __importDefault(react_1);
-    prop_types_1 = __importDefault(prop_types_1);
     hoist_non_react_statics_1 = __importDefault(hoist_non_react_statics_1);
-    var contextTypes = {
-        getTheme: prop_types_1.default.func
-    };
     var withStyles = function (stylesCallback, themeName) {
         if (themeName === void 0) { themeName = function () { return 'default'; }; }
         return function (WrappedComponent) {
@@ -43,12 +39,14 @@ define(["require", "exports", "react", "prop-types", "hoist-non-react-statics", 
                     return _super !== null && _super.apply(this, arguments) || this;
                 }
                 Wrapper.prototype.render = function () {
-                    var name = themeName(this.props);
-                    var theme = this.context.getTheme(name);
-                    var styles = react_native_1.StyleSheet.create(__assign({}, stylesCallback(theme, this.props)));
-                    return (react_1.default.createElement(WrappedComponent, __assign({}, this.props, { styles: styles, theme: theme })));
+                    var _this = this;
+                    return (react_1.default.createElement(context_1.ThemeContext.Consumer, null, function (themes) {
+                        var name = themeName(_this.props);
+                        var theme = themes[name];
+                        var styles = react_native_1.StyleSheet.create(__assign({}, stylesCallback(theme, _this.props)));
+                        return (react_1.default.createElement(WrappedComponent, __assign({}, _this.props, { styles: styles, theme: theme })));
+                    }));
                 };
-                Wrapper.contextTypes = contextTypes;
                 return Wrapper;
             }(react_1.default.PureComponent));
             return hoist_non_react_statics_1.default(Wrapper, WrappedComponent);

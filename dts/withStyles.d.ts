@@ -1,5 +1,5 @@
 import React from "react";
-import { ThemeBase } from ".";
+import { ThemeBase } from "./types";
 export declare type WithStyles<Styles, Theme> = {
     styles: Styles;
     theme: Theme;

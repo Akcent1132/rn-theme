@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -23,12 +23,9 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 import React from "react";
-import PropTypes from "prop-types";
-import hoistNonReactStatics from "hoist-non-react-statics";
 import { StyleSheet } from "react-native";
-var contextTypes = {
-    getTheme: PropTypes.func
-};
+import { ThemeContext } from "./context";
+import hoistNonReactStatics from "hoist-non-react-statics";
 var withStyles = function (stylesCallback, themeName) {
     if (themeName === void 0) { themeName = function () { return 'default'; }; }
     return function (WrappedComponent) {
@@ -38,12 +35,14 @@ var withStyles = function (stylesCallback, themeName) {
                 return _super !== null && _super.apply(this, arguments) || this;
             }
             Wrapper.prototype.render = function () {
-                var name = themeName(this.props);
-                var theme = this.context.getTheme(name);
-                var styles = StyleSheet.create(__assign({}, stylesCallback(theme, this.props)));
-                return (React.createElement(WrappedComponent, __assign({}, this.props, { styles: styles, theme: theme })));
+                var _this = this;
+                return (React.createElement(ThemeContext.Consumer, null, function (themes) {
+                    var name = themeName(_this.props);
+                    var theme = themes[name];
+                    var styles = StyleSheet.create(__assign({}, stylesCallback(theme, _this.props)));
+                    return (React.createElement(WrappedComponent, __assign({}, _this.props, { styles: styles, theme: theme })));
+                }));
             };
-            Wrapper.contextTypes = contextTypes;
             return Wrapper;
         }(React.PureComponent));
         return hoistNonReactStatics(Wrapper, WrappedComponent);

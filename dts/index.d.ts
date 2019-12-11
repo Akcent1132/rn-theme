@@ -1,4 +1,6 @@
-import ThemeProvider, { ThemeProviderProps, ThemeBase } from "./ThemeProvider";
+import ThemeProvider, { ThemeProviderProps } from "./ThemeProvider";
 import withStyles, { WithStyles } from "./withStyles";
-export { ThemeProvider, withStyles, WithStyles, ThemeBase, ThemeProviderProps };
+import { ThemeBase } from "./types";
+import useTheme from "./useTheme";
+export { ThemeProvider, withStyles, WithStyles, ThemeBase, ThemeProviderProps, useTheme };
 //# sourceMappingURL=index.d.ts.map
