@@ -22,9 +22,9 @@ define(["require", "exports", "react", "./context", "react-native"], function (r
     React = __importStar(React);
     var useTheme = function (stylesCallback, props, themeName) {
         if (props === void 0) { props = {}; }
-        if (themeName === void 0) { themeName = 'default'; }
         var themes = React.useContext(context_1.ThemeContext);
-        var theme = themes[themeName];
+        var switcher = React.useContext(context_1.ThemeSwitcherContext);
+        var theme = themes[themeName || switcher.themeName];
         var styles = react_native_1.StyleSheet.create(__assign({}, stylesCallback(theme, props)));
         return [styles, theme];
     };

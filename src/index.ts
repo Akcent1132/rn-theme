@@ -2,6 +2,7 @@ import ThemeProvider, { ThemeProviderProps } from "./ThemeProvider";
 import withStyles, { WithStyles } from "./withStyles";
 import { ThemeBase } from "./types";
 import useTheme from "./useTheme";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 export {
     ThemeProvider,
@@ -9,5 +10,6 @@ export {
     WithStyles,
     ThemeBase,
     ThemeProviderProps,
-    useTheme
+    useTheme,
+    ThemeSwitcher
 }

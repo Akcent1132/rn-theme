@@ -10,13 +10,13 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 import * as React from "react";
-import { ThemeContext } from "./context";
+import { ThemeContext, ThemeSwitcherContext } from "./context";
 import { StyleSheet } from "react-native";
 var useTheme = function (stylesCallback, props, themeName) {
     if (props === void 0) { props = {}; }
-    if (themeName === void 0) { themeName = 'default'; }
     var themes = React.useContext(ThemeContext);
-    var theme = themes[themeName];
+    var switcher = React.useContext(ThemeSwitcherContext);
+    var theme = themes[themeName || switcher.themeName];
     var styles = StyleSheet.create(__assign({}, stylesCallback(theme, props)));
     return [styles, theme];
 };
