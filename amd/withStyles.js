@@ -1,16 +1,3 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -25,30 +12,19 @@ var __assign = (this && this.__assign) || function () {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-define(["require", "exports", "react", "react-native", "./context", "hoist-non-react-statics"], function (require, exports, react_1, react_native_1, context_1, hoist_non_react_statics_1) {
+define(["require", "exports", "hoist-non-react-statics", "react", "./useTheme"], function (require, exports, hoist_non_react_statics_1, react_1, useTheme_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    react_1 = __importDefault(react_1);
     hoist_non_react_statics_1 = __importDefault(hoist_non_react_statics_1);
+    react_1 = __importDefault(react_1);
+    useTheme_1 = __importDefault(useTheme_1);
     var withStyles = function (stylesCallback, themeName) {
         if (themeName === void 0) { themeName = function () { return 'default'; }; }
         return function (WrappedComponent) {
-            var Wrapper = /** @class */ (function (_super) {
-                __extends(Wrapper, _super);
-                function Wrapper() {
-                    return _super !== null && _super.apply(this, arguments) || this;
-                }
-                Wrapper.prototype.render = function () {
-                    var _this = this;
-                    return (react_1.default.createElement(context_1.ThemeContext.Consumer, null, function (themes) {
-                        var name = themeName(_this.props);
-                        var theme = themes[name];
-                        var styles = react_native_1.StyleSheet.create(__assign({}, stylesCallback(theme, _this.props)));
-                        return (react_1.default.createElement(WrappedComponent, __assign({}, _this.props, { styles: styles, theme: theme })));
-                    }));
-                };
-                return Wrapper;
-            }(react_1.default.PureComponent));
+            var Wrapper = function (props) {
+                var _a = useTheme_1.default(stylesCallback, props, themeName(props)), styles = _a[0], theme = _a[1];
+                return (react_1.default.createElement(WrappedComponent, __assign({}, props, { styles: styles, theme: theme })));
+            };
             return hoist_non_react_statics_1.default(Wrapper, WrappedComponent);
         };
     };
