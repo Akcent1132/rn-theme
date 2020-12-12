@@ -9,8 +9,13 @@ export type ThemeProviderProps = {
     themes: Themes
 }
 const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, themes}) => {
+
+    const _themes: any = React.useMemo(()=>{
+        return themes
+    },[JSON.stringify(themes)]);
+
     return (
-        <ThemeContext.Provider value={themes}>
+        <ThemeContext.Provider value={_themes}>
             {
                 children
             }

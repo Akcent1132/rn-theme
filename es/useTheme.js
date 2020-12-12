@@ -8,7 +8,7 @@ var useTheme = function (stylesCallback, props, themeName) {
     var _style = stylesCallback(theme, props);
     var styles = React.useMemo(function () {
         return _style;
-    }, [theme, JSON.stringify(_style)]);
+    }, [JSON.stringify(_style)]);
     return [styles, theme];
 };
 export default useTheme;

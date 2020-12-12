@@ -14,7 +14,7 @@ const useTheme = function <Styles, Theme extends ThemeBase<{}>, Props extends ob
     
     const styles: any = React.useMemo(()=>{
         return _style
-    },[theme, JSON.stringify(_style)]);
+    },[JSON.stringify(_style)]);
 
     return [styles, theme]
 }

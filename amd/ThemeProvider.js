@@ -11,7 +11,10 @@ define(["require", "exports", "react", "./context"], function (require, exports,
     React = __importStar(React);
     var ThemeProvider = function (_a) {
         var children = _a.children, themes = _a.themes;
-        return (React.createElement(context_1.ThemeContext.Provider, { value: themes }, children));
+        var _themes = React.useMemo(function () {
+            return themes;
+        }, [JSON.stringify(themes)]);
+        return (React.createElement(context_1.ThemeContext.Provider, { value: _themes }, children));
     };
     exports.default = ThemeProvider;
 });
