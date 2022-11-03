@@ -2,6 +2,7 @@ import hoistNonReactStatics from "hoist-non-react-statics";
 import React from "react";
 import { ThemeBase } from "./types";
 import useTheme from "./useTheme";
+import { ThemeSwitcherContext } from "./context";
 
 
 export declare type WithStyles<Styles, Theme> = {
@@ -10,12 +11,14 @@ export declare type WithStyles<Styles, Theme> = {
 }
 
 
-const withStyles = function <Styles, Theme extends ThemeBase<{}>>(stylesCallback: (theme: Theme, ownProps: any) => Styles, themeName: (props: any) => string = () => 'default') {
+const withStyles = function <Styles, Theme extends ThemeBase<{}>>(stylesCallback: (theme: Theme, ownProps: any) => Styles, themeName?: (props: any) => string) {
     return function <OwnProps>(WrappedComponent: React.ComponentType<OwnProps & WithStyles<Styles, Theme>>): React.ComponentType<OwnProps> {
 
 
         const Wrapper: React.FC<OwnProps> = (props) => {
-            const [styles, theme] = useTheme(stylesCallback, props, themeName(props))
+            const switcher = React.useContext(ThemeSwitcherContext);
+            const ownThemeName = themeName ? themeName(props) : undefined;
+            const [styles, theme] = useTheme(stylesCallback, props, ownThemeName || switcher.themeName || 'default')
             return (
                 <WrappedComponent
                     {...props}

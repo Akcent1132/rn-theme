@@ -11,9 +11,10 @@ define(["require", "exports", "react", "./context"], function (require, exports,
     React = __importStar(React);
     var ThemeSwitcher = function (_a) {
         var children = _a.children, themeName = _a.themeName;
-        return (React.createElement(context_1.ThemeSwitcherContext.Provider, { value: {
-                themeName: themeName
-            } }, children));
+        var value = React.useMemo(function () { return ({
+            themeName: themeName
+        }); }, [themeName]);
+        return (React.createElement(context_1.ThemeSwitcherContext.Provider, { value: value }, children));
     };
     exports.default = ThemeSwitcher;
 });

@@ -12,11 +12,13 @@ var __assign = (this && this.__assign) || function () {
 import hoistNonReactStatics from "hoist-non-react-statics";
 import React from "react";
 import useTheme from "./useTheme";
+import { ThemeSwitcherContext } from "./context";
 var withStyles = function (stylesCallback, themeName) {
-    if (themeName === void 0) { themeName = function () { return 'default'; }; }
     return function (WrappedComponent) {
         var Wrapper = function (props) {
-            var _a = useTheme(stylesCallback, props, themeName(props)), styles = _a[0], theme = _a[1];
+            var switcher = React.useContext(ThemeSwitcherContext);
+            var ownThemeName = themeName ? themeName(props) : undefined;
+            var _a = useTheme(stylesCallback, props, ownThemeName || switcher.themeName || 'default'), styles = _a[0], theme = _a[1];
             return (React.createElement(WrappedComponent, __assign({}, props, { styles: styles, theme: theme })));
         };
         return hoistNonReactStatics(Wrapper, WrappedComponent);
